@@ -79,6 +79,15 @@ export default function Home() {
         </motion.button>
       </motion.div>
 
+      <motion.div
+        className="fixed bottom-4 right-4 text-pink-400/50 text-sm font-light"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+      >
+        Made with 💝 by gm
+      </motion.div>
+
       <LoveModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </main>
   );
