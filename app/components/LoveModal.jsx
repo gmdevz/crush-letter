@@ -110,8 +110,8 @@ export default function LoveModal({ isOpen, onClose }) {
             animate={{ y: [0, -3, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            I get butterflies every time we chat—— are you the reasone, or
-            should I blame the chemistry?🦋🥰
+            I get butterflies every time we chat— are you the reason, or should
+            I blame the chemistry?🦋🥰
           </motion.p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
