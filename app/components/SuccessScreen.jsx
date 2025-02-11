@@ -84,8 +84,7 @@ export default function SuccessScreen({ isVisible }) {
             animate={{ rotate: [-1, 1, -1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            You just made me the happiest person alive... and I’m definitely
-            blaming you for it! 💝
+            You’re the reason I can’t stop smiling. Blame you for that! 😘💖
           </motion.p>
 
           <motion.div
