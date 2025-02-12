@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "My Favorite Person 😘",
-  description: "A special message for my crush",
+  description: "A special message for you, mi crush",
 };
 
 export default function RootLayout({ children }) {
