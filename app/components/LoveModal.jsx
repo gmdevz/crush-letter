@@ -18,9 +18,22 @@ export default function LoveModal({ isOpen, onClose }) {
   }, []);
 
   const moveButton = () => {
-    const maxRange = isMobile ? 0.2 : 150;
-    const newX = Math.random() * maxRange - maxRange / 2;
-    const newY = Math.random() * maxRange - maxRange / 2;
+    // Get viewport dimensions
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Fixed button dimensions
+    const buttonWidth = 250; // Increased to account for text and padding
+    const buttonHeight = 80;
+
+    // Calculate maximum positions
+    const maxX = viewportWidth - buttonWidth;
+    const maxY = viewportHeight - buttonHeight;
+
+    // Generate new position within safe bounds
+    const newX = Math.floor(Math.random() * (maxX * 0.8)); // Using 80% of available space
+    const newY = Math.floor(Math.random() * (maxY * 0.8));
+
     setPosition({ x: newX, y: newY });
   };
 
@@ -81,14 +94,24 @@ export default function LoveModal({ isOpen, onClose }) {
             </motion.button>
 
             <motion.button
-              className="bg-gray-200 text-gray-700 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-300 transition shadow-md"
+              className="bg-gray-200 text-gray-700 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-300 shadow-md"
+              animate={{
+                x: position.x,
+                y: position.y,
+              }}
+              transition={{
+                type: "spring",
+                damping: 20,
+                stiffness: 300,
+                mass: 0.8,
+              }}
               style={{
-                transform: `translate(${position.x}px, ${position.y}px)`,
-                transition: "all 0.2s ease",
+                position: "fixed",
+                left: 0,
+                top: 0,
                 touchAction: "manipulation",
                 WebkitTapHighlightColor: "transparent",
-                position: "relative",
-                zIndex: 10,
+                zIndex: 100,
               }}
               onMouseEnter={moveButton}
               onTouchStart={moveButton}
