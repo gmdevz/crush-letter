@@ -67,7 +67,7 @@ export default function LoveModal({ isOpen, onClose }) {
           transition={{ type: "spring", bounce: 0.4 }}
         >
           <h2 className="text-3xl font-bold text-pink-500 mb-6">
-            My Butterfly Effect 🦋
+            🦋 My Butterfly Effect 🦋
           </h2>
 
           <div className="flex justify-center gap-2 mb-4">
