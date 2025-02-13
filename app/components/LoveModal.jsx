@@ -18,17 +18,10 @@ export default function LoveModal({ isOpen, onClose }) {
   }, []);
 
   const moveButton = () => {
-    if (isMobile) {
-      const maxX = window.innerWidth * 0.2; // Reduced movement range
-      const maxY = window.innerHeight * 0.15;
-      const newX = Math.random() * maxX - maxX / 2;
-      const newY = Math.random() * maxY - maxY / 2;
-      setPosition({ x: newX, y: newY });
-    } else {
-      const newX = Math.random() * 150 - 75; // Reduced movement range
-      const newY = Math.random() * 150 - 75;
-      setPosition({ x: newX, y: newY });
-    }
+    const maxRange = isMobile ? 0.2 : 150;
+    const newX = Math.random() * maxRange - maxRange / 2;
+    const newY = Math.random() * maxRange - maxRange / 2;
+    setPosition({ x: newX, y: newY });
   };
 
   const handleYesClick = () => {
@@ -44,30 +37,14 @@ export default function LoveModal({ isOpen, onClose }) {
   return (
     <AnimatePresence>
       <SuccessScreen isVisible={showSuccess} key="success-screen" />
-      <motion.div
-        key="modal-overlay"
-        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
         {showConfetti && (
           <ReactConfetti
-            drawShape={(ctx) => {
-              const size = isMobile ? 4 : 8; // Smaller on mobile, larger on desktop
-              ctx.beginPath();
-              ctx.moveTo(0, 0);
-              ctx.bezierCurveTo(size, -size, size * 2, 0, size, size);
-              ctx.bezierCurveTo(0, size * 2, -size, size, 0, 0);
-              ctx.fill();
-            }}
             colors={["#FF69B4", "#FFB6C1", "#FFC0CB", "#FF1493"]}
             numberOfPieces={isMobile ? 150 : 200}
             recycle={false}
             gravity={0.2}
             tweenDuration={4000}
-            width={window.innerWidth}
-            height={window.innerHeight}
           />
         )}
         <motion.div
@@ -76,43 +53,22 @@ export default function LoveModal({ isOpen, onClose }) {
           animate={{ scale: 1, y: 0 }}
           transition={{ type: "spring", bounce: 0.4 }}
         >
-          <motion.h2
-            className="text-3xl font-bold text-pink-500 mb-6"
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            Hey, You 🥰
-          </motion.h2>
+          <h2 className="text-3xl font-bold text-pink-500 mb-6">
+            My Butterfly Effect 🦋
+          </h2>
 
-          <motion.div
-            className="flex justify-center gap-2 mb-4"
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            {["💖", "✨", "💝"].map((emoji, index) => (
-              <motion.span
-                key={`modal-emoji-${index}`}
-                className="text-2xl"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{
-                  duration: 1,
-                  delay: index * 0.3,
-                  repeat: Infinity,
-                }}
-              >
+          <div className="flex justify-center gap-2 mb-4">
+            {["💖", "✨", "💝"].map((emoji) => (
+              <span key={emoji} className="text-2xl">
                 {emoji}
-              </motion.span>
+              </span>
             ))}
-          </motion.div>
+          </div>
 
-          <motion.p
-            className="text-xl text-pink-600 mb-8 font-medium text-center"
-            animate={{ y: [0, -3, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
+          <p className="text-xl text-pink-600 mb-8 font-medium text-center">
             I get butterflies every time we chat— are you the reason, or should
             I blame the chemistry?🦋🥰
-          </motion.p>
+          </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <motion.button
@@ -121,28 +77,28 @@ export default function LoveModal({ isOpen, onClose }) {
               whileTap={{ scale: 0.95 }}
               onClick={handleYesClick}
             >
-              Yes, I'd love to! 💖
+              It's definitely chemistry! 💘
             </motion.button>
 
             <motion.button
               className="bg-gray-200 text-gray-700 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-300 transition shadow-md"
               style={{
                 transform: `translate(${position.x}px, ${position.y}px)`,
-                transition: "all 0.2s ease", // Faster transition
+                transition: "all 0.2s ease",
                 touchAction: "manipulation",
                 WebkitTapHighlightColor: "transparent",
-                position: "relative", // Added for better positioning
-                zIndex: 10, // Ensures button stays above other elements
+                position: "relative",
+                zIndex: 10,
               }}
-              onMouseEnter={moveButton} // Changed from onMouseOver for better response
+              onMouseEnter={moveButton}
               onTouchStart={moveButton}
               onClick={moveButton}
             >
-              Let me think 🤔
+              Need more butterflies 🦋
             </motion.button>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
     </AnimatePresence>
   );
 }

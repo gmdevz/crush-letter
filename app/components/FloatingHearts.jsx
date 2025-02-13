@@ -2,21 +2,26 @@
 import { useEffect, useState } from "react";
 
 export default function FloatingHearts() {
-  const [hearts, setHearts] = useState([]);
+  const [elements, setElements] = useState([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const heart = {
+      const isButterfly = Math.random() > 0.5;
+      const element = {
         id: Date.now(),
         left: Math.random() * 100,
         animationDuration: 3 + Math.random() * 4,
+        emoji: isButterfly ? "🦋" : "💖",
+        rotate: isButterfly ? Math.random() * 360 : 0,
       };
 
-      setHearts((prevHearts) => [...prevHearts, heart]);
+      setElements((prevElements) => [...prevElements, element]);
 
       setTimeout(() => {
-        setHearts((prevHearts) => prevHearts.filter((h) => h.id !== heart.id));
-      }, heart.animationDuration * 1000);
+        setElements((prevElements) =>
+          prevElements.filter((e) => e.id !== element.id)
+        );
+      }, element.animationDuration * 1000);
     }, 300);
 
     return () => clearInterval(interval);
@@ -24,17 +29,19 @@ export default function FloatingHearts() {
 
   return (
     <div className="fixed inset-0 pointer-events-none">
-      {hearts.map((heart) => (
+      {elements.map((element) => (
         <div
-          key={heart.id}
+          key={element.id}
           className="absolute text-3xl"
           style={{
-            left: `${heart.left}%`,
-            animation: `float ${heart.animationDuration}s linear`,
+            left: `${element.left}%`,
+            animation: `float ${element.animationDuration}s linear`,
             bottom: "-20px",
+            transform: `rotate(${element.rotate}deg)`,
+            transition: "transform 2s ease-in-out",
           }}
         >
-          💖
+          {element.emoji}
         </div>
       ))}
     </div>
